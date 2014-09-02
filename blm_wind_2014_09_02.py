@@ -27,10 +27,15 @@ def analyzeBLM():
 
         print '- intersecting wind power class'
         arcpy.Clip_analysis(wpc, 'blm_min_tnc_sg_tch_tcor', 'wpc_in_blm')
+
+        print '- intersecting Theobald intactness w/ith wpc >= 3'
+        arcpy.Clip_analysis(intactness, 'wpc_in_blm_gte3', 'wpc_in_blm_gte3_intact')
+
     except:
         print 'ugh. problems'
         print arcpy.GetMessages(2)
 
+# data
 outGDB = 'D:/NorthAmerica/NorthAmericaMaps/BLM_wind/BLM_wind.gdb/'
 baseConservation = 'd:/NorthAmerica/base_conservation.gdb/'
 blmLands = baseConservation+'padus_cbi_v2_blm_d'
@@ -39,7 +44,7 @@ sageGrouse = baseConservation+'usfws_blm_sage_grouse_priority_areas_conservation
 tortoiseCritHab = 'D:/NorthAmerica/NorthAmericaMaps/BLM_wind/BLM_wind.gdb/tortoise_critical_habitat'
 tortoiseCorridors = 'D:/NorthAmerica/NorthAmericaMaps/BLM_wind/BLM_wind.gdb/tortoise_corridors'
 wpc = 'D:/NorthAmerica/ConservationLands/ROI/data/Energy/Wind/NREL_WindEnergyPotential20131216.gdb/All_States01merge'
+intactness = 'D:/NorthAmerica/ConservationLands/ROI/data/Intactness/Theobald_HM_Intactness.gdb/rHM_Intact_GET_60_poly_d'
 
 # Call function
-print (sys.version)
 analyzeBLM()
